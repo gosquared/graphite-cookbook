@@ -1,9 +1,7 @@
 ### GENERAL
 #
-default[:graphite][:src]     = "/usr/local/src/graphite"
 default[:graphite][:home]    = "/opt/graphite"
 default[:graphite][:version] = "0.9.9"
-default[:graphite][:baseuri] = "http://launchpadlibrarian.net"
 
 
 
@@ -14,9 +12,6 @@ default[:graphite][:baseuri] = "http://launchpadlibrarian.net"
 # Strange problems can ensue if you do.
 #
 default[:graphite][:carbon][:dir]       = "carbon-#{graphite.version}"
-default[:graphite][:carbon][:uri]       = "#{graphite.baseuri}/82112362/#{graphite.carbon.dir}.tar.gz"
-default[:graphite][:carbon][:checksum]  = "c97d3bab6d60592daf5146dc1e2fb016"
-default[:graphite][:carbon][:user]      = "graphite"
 #
 # Limit the size of the cache to avoid swapping or becoming CPU bound.
 # Sorts and serving cache queries gets more expensive as the cache grows.
@@ -84,12 +79,8 @@ default[:graphite][:carbon][:amqp][:metric_name_in_body] = "False"
 # distribution, or have no idea what this means, it is most likely the root /
 # superuser account.
 default[:graphite][:whisper][:dir]      = "whisper-#{graphite.version}"
-default[:graphite][:whisper][:uri]      = "#{graphite.baseuri}/82112367/#{graphite.whisper.dir}.tar.gz"
-default[:graphite][:whisper][:checksum] = "66c05eafe8d86167909262dddc96c0bbfde199fa75524efa50c9ffbe9472078d"
 
 ### WEB - Django WEB APP
 #
 # This is the frontend / webapp that renders the images.
 default[:graphite][:web][:dir]          = "graphite-web-#{graphite.version}"
-default[:graphite][:web][:uri]          = "#{graphite.baseuri}/82112308/#{graphite.web.dir}.tar.gz"
-default[:graphite][:web][:checksum]     = "6e8a6adc930c16f85c3442ce30f49a8f"

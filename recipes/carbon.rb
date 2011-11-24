@@ -1,23 +1,21 @@
-package "python-sqlite"
-package "python-amqplib"
-package "python-twisted"
-
-remote_file "#{node.graphite.src}/#{node.graphite.carbon.dir}.tar.gz" do
-  source node.graphite.carbon.uri
-  checksum node.graphite.carbon.checksum
-  action :create_if_missing
+python_pip "pysqlite" do
+  version "2.6.3"
+  # virtualenv "graphite"
 end
 
-execute "untar carbon" do
-  command "tar xzf #{node.graphite.carbon.dir}.tar.gz"
-  creates "#{node.graphite.src}/#{node.graphite.carbon.dir}"
-  cwd node.graphite.src
+python_pip "Twisted" do
+  version "11.1.0"
+  # virtualenv "graphite"
 end
 
-execute "install carbon" do
-  command "python setup.py install"
-  creates "#{node.graphite.home}/lib/#{node.graphite.carbon.dir}-py2.6.egg-info"
-  cwd "#{node.graphite.src}/#{node.graphite.carbon.dir}"
+python_pip "txAMQP" do
+  version "0.5"
+  # virtualenv "graphite"
+end
+
+python_pip "carbon" do
+  version node.graphite.version
+  # virtualenv "graphite"
 end
 
 service "carbon-cache" do

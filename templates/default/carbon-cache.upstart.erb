@@ -13,11 +13,11 @@ env PIDFILE=<%= node.graphite.home %>/storage/carbon-cache.pid
 # console output
 
 pre-start script
-  /usr/bin/python $CARBON_CACHE --pidfile=$PIDFILE start
+  $CARBON_CACHE --pidfile=$PIDFILE start
 end script
 
 post-stop script
-  /usr/bin/python $CARBON_CACHE --pidfile=$PIDFILE stop
+  $CARBON_CACHE --pidfile=$PIDFILE stop
 
   # don't consider this service stopped until the PID gets removed
   #
