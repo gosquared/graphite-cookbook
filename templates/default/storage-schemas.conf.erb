@@ -1,9 +1,16 @@
+# Schema definitions for whisper files. Entries are scanned in order,
+# and first match wins.
+#
+#  [name]
+#  pattern = regex
+#  retentions = timePerPoint:timeToStore, timePerPoint:timeToStore, ...
+
 [stats]
 priority = 100
 pattern = ^stats\..*
-retentions = 10:2160,60:10080,600:262974
+retentions = 1m:7d, 10m:1y, 1h:5y
 
 [catchall]
 priority = 0
 pattern = ^.*
-retentions = 60:565920
+retentions = 1m:1y
