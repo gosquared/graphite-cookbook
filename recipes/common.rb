@@ -8,6 +8,7 @@ user "graphite" do
 end
 
 # python_virtualenv "/opt/graphite" do
+#   interpreter "python2.7"
 #   owner "graphite"
 #   group "graphite"
 # end
