@@ -1,5 +1,3 @@
-python_pip "uWSGI"
-
 python_pip "Django" do
   version "1.3.1"
 end

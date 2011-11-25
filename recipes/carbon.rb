@@ -21,23 +21,27 @@ service "carbon-cache" do
 end
 
 template "#{node.graphite.home}/conf/carbon.conf" do
-  notifies :restart, resources(:service => "carbon-cache")
+  notifies :restart, resources(:service => "carbon-cache"), :delayed
+  backup false
 end
 
 template "#{node.graphite.home}/conf/storage-schemas.conf" do
-  notifies :restart, resources(:service => "carbon-cache")
+  notifies :restart, resources(:service => "carbon-cache"), :delayed
+  backup false
 end
 
 template "/etc/init/carbon-cache.conf" do
+  cookbook "graphite"
   source "carbon-cache.upstart.erb"
   mode "0644"
-  notifies :restart, resources(:service => "carbon-cache")
+  notifies :restart, resources(:service => "carbon-cache"), :delayed
+  backup false
 end
 
 execute "correct permissions for graphite folder" do
   command %{
     chown -fR graphite. #{node.graphite.home}
-    chmod -fR 750 #{node.graphite.home}
+    cd #{node.graphite.home} && chmod -fR 750 *
   }
 end
 
