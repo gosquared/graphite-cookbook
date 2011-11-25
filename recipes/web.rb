@@ -10,5 +10,6 @@ end
 
 python_pip "graphite_web" do
   version node.graphite.version
+  directory "#{node.graphite.home}/webapp"
 end
 

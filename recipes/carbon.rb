@@ -12,6 +12,7 @@ end
 
 python_pip "carbon" do
   version node.graphite.version
+  directory "#{node.graphite.home}/lib"
 end
 
 service "carbon-cache" do
