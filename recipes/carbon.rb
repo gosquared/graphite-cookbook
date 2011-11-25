@@ -1,21 +1,17 @@
 python_pip "pysqlite" do
   version "2.6.3"
-  # virtualenv "graphite"
 end
 
 python_pip "Twisted" do
   version "11.1.0"
-  # virtualenv "graphite"
 end
 
 python_pip "txAMQP" do
   version "0.5"
-  # virtualenv "graphite"
 end
 
 python_pip "carbon" do
   version node.graphite.version
-  # virtualenv "graphite"
 end
 
 service "carbon-cache" do
