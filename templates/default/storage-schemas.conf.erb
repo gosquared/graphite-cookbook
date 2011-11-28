@@ -13,4 +13,15 @@ retentions = 1m:7d, 10m:1y, 1h:5y
 [catchall]
 priority = 0
 pattern = ^.*
-retentions = 1m:1y
+retentions = 10s:6h, 1m:1w, 10m:3y
+
+#realtime
+# 1 seconds * 1209600 datapoints = 2 week of 1 second granularity
+# 10 seconds * 864000 datapoints   =  2 months of 10-second granularity
+# 60 seconds * 259200 datapoints =   6 months of 1-minute granularity
+# 10 minutes * 262974 datapoints = ~3 years of 10-minute granularity
+#retentions='1:1209600,10:864000,60:259200,600:262974'
+#standard
+# 10 seconds * 2160 datapoints   =  6 hours of 10-second granularity
+# 60 seconds * 100080 datapoints =   1 week of 1-minute granularity
+# 10 minutes * 262974 datapoints = ~3 years of 10-minute granularity

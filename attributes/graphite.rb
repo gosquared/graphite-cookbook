@@ -36,7 +36,7 @@ default[:graphite][:carbon][:max_creates_per_minute] = 50
 #
 # Receiving interface
 default[:graphite][:carbon][:line_receiver_interface] = "0.0.0.0"
-default[:graphite][:carbon][:line_receiver_port] = "2003"
+default[:graphite][:carbon][:line_receiver_port]      = "2003"
 #
 # AMQP
 default[:graphite][:carbon][:amqp][:host]                = "localhost"
@@ -84,3 +84,17 @@ default[:graphite][:whisper][:dir]      = "whisper-#{graphite.version}"
 #
 # This is the frontend / webapp that renders the images.
 default[:graphite][:web][:dir]          = "graphite-web-#{graphite.version}"
+#
+# Set your local timezone (django will *try* to figure this out automatically)
+default[:graphite][:web][:timezone]     = "Europe/London"
+#
+# This lists all the memcached servers that will be used by this webapp.
+# If you have a cluster of webapps you want to make sure all of them
+# have the *exact* same value for this setting. That will maximize cache
+# efficiency. Setting MEMCACHE_HOSTS to be empty will turn off use of
+# memcached entirely.
+#
+# You should not use the loopback address 127.0.0.1 here because every webapp in
+# the cluster should use the exact same value and should list every member in the
+# cluster.
+default[:graphite][:web][:memcache_hosts]     = []

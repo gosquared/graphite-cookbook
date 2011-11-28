@@ -1,3 +1,5 @@
+package "libsqlite3-dev"
+
 python_pip "pysqlite" do
   version "2.6.3"
 end
@@ -21,11 +23,13 @@ service "carbon-cache" do
 end
 
 template "#{node.graphite.home}/conf/carbon.conf" do
+  cookbook "graphite"
   notifies :restart, resources(:service => "carbon-cache"), :delayed
   backup false
 end
 
 template "#{node.graphite.home}/conf/storage-schemas.conf" do
+  cookbook "graphite"
   notifies :restart, resources(:service => "carbon-cache"), :delayed
   backup false
 end
@@ -41,7 +45,7 @@ end
 execute "correct permissions for graphite folder" do
   command %{
     chown -fR graphite. #{node.graphite.home}
-    cd #{node.graphite.home} && chmod -fR 750 *
+    cd #{node.graphite.home} && chmod -fR 777 *
   }
 end
 
