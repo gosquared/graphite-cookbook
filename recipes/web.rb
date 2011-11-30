@@ -15,6 +15,10 @@ python_pip "django-tagging" do
   version "0.3.1"
 end
 
+python_pip "simplejson" do
+  version "2.2.1"
+end
+
 package "python-cairo"
 
 # Defining it through uwsgi recipe, this feels much more elegant:
