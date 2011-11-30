@@ -5,23 +5,25 @@
 #  pattern = regex
 #  retentions = timePerPoint:timeToStore, timePerPoint:timeToStore, ...
 
-[stats]
+[agents]
 priority = 100
-pattern = ^stats\..*
-retentions = 1m:7d, 10m:1y, 1h:5y
+pattern = ^carbon\.agents.*
+retentions = 1m:31d, 10m:2y
 
 [catchall]
 priority = 0
 pattern = ^.*
-retentions = 10:6h, 1m:7d, 10m:3y
+retentions = 1m:7d, 10m:1y
 
-#realtime
-# 1 seconds * 1209600 datapoints = 2 week of 1 second granularity
-# 10 seconds * 864000 datapoints   =  2 months of 10-second granularity
-# 60 seconds * 259200 datapoints =   6 months of 1-minute granularity
-# 10 minutes * 262974 datapoints = ~3 years of 10-minute granularity
-#retentions='1:1209600,10:864000,60:259200,600:262974'
-#standard
-# 10 seconds * 2160 datapoints   =  6 hours of 10-second granularity
-# 60 seconds * 100080 datapoints =   1 week of 1-minute granularity
-# 10 minutes * 262974 datapoints = ~3 years of 10-minute granularity
+# realtime graphs
+# retentions = 1:14d, 10:61d, 1m:183d, 10m:3y
+# 2 week of 1 second granularity
+# 2 months of 10-second granularity
+# 6 months of 1-minute granularity
+# 3 years of 10-minute granularity
+
+# standard graphs
+# retentions = 10:6h, 1m:7d, 1m:183d, 10m:3y
+# 6 hours of 10-second granularity
+# 1 week of 1-minute granularity
+# 3 years of 10-minute granularity

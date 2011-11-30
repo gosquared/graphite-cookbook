@@ -66,3 +66,7 @@ template "#{node.graphite.home}/webapp/graphite/local_settings.py" do
   backup false
 end
 
+execute "syncdb" do
+  command "yes no | python #{node.graphite.home}/webapp/graphite/manage.py syncdb"
+  not_if "[ -f #{node.graphite.home}/storage/graphite.db ]"
+end
