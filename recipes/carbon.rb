@@ -42,13 +42,6 @@ template "/etc/init/carbon-cache.conf" do
   backup false
 end
 
-execute "correct permissions for graphite folder" do
-  command %{
-    chown -fR graphite. #{node.graphite.home}
-    cd #{node.graphite.home} && chmod -fR 777 *
-  }
-end
-
 service "carbon-cache" do
   pattern "carbon-cache"
   action [:enable, :start]
