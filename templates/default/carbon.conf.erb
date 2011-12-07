@@ -93,7 +93,7 @@ LOG_UPDATES = False
 WHISPER_AUTOFLUSH = False
 
 # Enable AMQP if you want to receve metrics using an amqp broker
-ENABLE_AMQP = True
+ENABLE_AMQP = <%= node.graphite.carbon.amqp.enable %>
 
 # Verbose means a line will be logged for every metric received
 # useful for testing

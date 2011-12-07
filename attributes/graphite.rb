@@ -39,6 +39,7 @@ default[:graphite][:carbon][:line_receiver_interface] = "0.0.0.0"
 default[:graphite][:carbon][:line_receiver_port]      = "2003"
 #
 # AMQP
+default[:graphite][:carbon][:amqp][:enable]              = "False"
 default[:graphite][:carbon][:amqp][:host]                = "localhost"
 default[:graphite][:carbon][:amqp][:port]                = 5672
 default[:graphite][:carbon][:amqp][:vhost]               = "/"
