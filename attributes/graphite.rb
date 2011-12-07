@@ -55,21 +55,31 @@ default[:graphite][:carbon][:amqp][:metric_name_in_body] = "False"
 # Many people will want to store more than one day's worth of data. If you
 # think that you may want to track trends week over week, month over month or
 # year over year, you may want to store 13 months (1 year + 1 month) or perhaps
-# even 2 - 3 years worth of data. If you want to learn more about data
-# retentions, please click here.
-
-# Here is an example of the 13-month retention example (giving you a month of
-# overlap when comparing metrics year-over-year):
-# Note: Priority is not used. ** Rules are applied in the order they appear in
-# the file**
-#
-#    [everything_1min_13months]
-#    priority = 100
-#    pattern = .*
-#    retentions = 60:565920
-#
+# even 2 - 3 years worth of data.
 # More info on data retention: http://graphite.wikidot.com/getting-your-data-into-graphite
+#
+# REALTIME GRAPHS
+# retentions = 1:14d, 10:61d, 1m:183d, 10m:3y
+# 2 week of 1 second granularity
+# 2 months of 10-second granularity
+# 6 months of 1-minute granularity
+# 3 years of 10-minute granularity
 
+# STANDARD GRAPHS
+# retentions = 10:6h, 1m:7d, 1m:183d, 10m:3y
+# 6 hours of 10-second granularity
+# 1 week of 1-minute granularity
+# 3 years of 10-minute granularity
+#
+# DEFAULT SCHEMA
+#
+#     [default]
+#     priority = 0
+#     pattern = .*
+#     retentions = 1m:31d, 10m:1y
+#
+# Schema definitions for whisper files:
+default[:graphite][:whisper][:schemas] = []
 
 
 ### WHISPER - DATABASE ENGINE

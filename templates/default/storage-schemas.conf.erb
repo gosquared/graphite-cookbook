@@ -4,26 +4,16 @@
 #  [name]
 #  pattern = regex
 #  retentions = timePerPoint:timeToStore, timePerPoint:timeToStore, ...
+<% node.graphite.whisper.schemas.each do |schema| -%>
+<%= %{
+[#{schema[:name]}]
+priority = #{schema[:priority]}
+pattern = #{schema[:pattern]}
+retentions = #{schema[:retentions]}
+} -%>
+<% end %>
 
-[agents]
-priority = 100
-pattern = ^carbon\.agents.*
-retentions = 1m:31d, 10m:2y
-
-[catchall]
+[default]
 priority = 0
-pattern = ^.*
-retentions = 1m:7d, 10m:1y
-
-# realtime graphs
-# retentions = 1:14d, 10:61d, 1m:183d, 10m:3y
-# 2 week of 1 second granularity
-# 2 months of 10-second granularity
-# 6 months of 1-minute granularity
-# 3 years of 10-minute granularity
-
-# standard graphs
-# retentions = 10:6h, 1m:7d, 1m:183d, 10m:3y
-# 6 hours of 10-second granularity
-# 1 week of 1-minute granularity
-# 3 years of 10-minute granularity
+pattern = .*
+retentions = 1m:31d, 10m:2y
