@@ -4,6 +4,21 @@ user "metrics" do
   shell     '/bin/bash'
 end
 
+bootstrap_profile node.graphite.metrics.user do
+  match "export HOSTNAME"
+  string "export HOSTNAME='#{node.graphite.metrics.hostname || node.hostname}'"
+end
+
+bootstrap_profile node.graphite.metrics.user do
+  match "export METRICS_IP"
+  string "export METRICS_IP='#{node.graphite.metrics.ip}'"
+end
+
+bootstrap_profile node.graphite.metrics.user do
+  match "export METRICS_PORT"
+  string "export METRICS_PORT='#{node.graphite.metrics.port}'"
+end
+
 def one_but_last(array)
   array[-2]
 end
