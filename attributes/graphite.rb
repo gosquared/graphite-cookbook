@@ -98,3 +98,50 @@ default[:graphite][:web][:timezone]     = "Europe/London"
 # the cluster should use the exact same value and should list every member in the
 # cluster.
 default[:graphite][:web][:memcache_hosts]     = []
+
+
+### METRICS - USER WHICH COLLECTS METRICS
+#
+# You can send metrics from within your Ruby/node.js/Python etc. app via
+# the numerous clients (mostly statsd). Or, you can be hardcore and use
+# something like awk to fetch data from e.g. redis and push it to your
+# metrics collector or aggregator. This part is for hardcore users.
+#
+# Check the files/default/metrics/example.awk script for a dead simple redis
+# collector.
+#
+# You shouldn't need to change this
+default[:graphite][:metrics][:user] = "metrics"
+#
+# Define your metrics. Here's an example:
+
+#     :graphite => {
+#       :metrics => {
+#         :files => [
+#             {
+#               :filename => "example.awk",
+#               :command => %{
+#                 while true; do
+#                   redis-cli SMEMBERS your_key | gawk -f /home/metrics/example.awk
+#                   sleep 20
+#                 end
+#               },
+#               :cookbook => "graphite" # redundant, this is the default
+#             }
+#           ]
+#         }
+#     }
+default[:graphite][:metrics][:files] = []
+#
+# The hostname where these metrics are being sent from.
+# It should not contain . since carbon will create a directory for each
+# component. your.awesome.hostname will result in
+# <graphite-storage>your/awesome/hostname/metric.wsp
+default[:graphite][:metrics][:hostname] = "your-hostname"
+#
+# Metrics collector/aggregator IP
+default[:graphite][:metrics][:ip] = "127.0.0.1"
+#
+# Metrics collector/aggregator port
+# If you're using statsd or statsite, this will be different
+default[:graphite][:metrics][:port] = "2003"
