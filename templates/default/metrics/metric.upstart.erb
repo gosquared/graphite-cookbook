@@ -9,5 +9,5 @@ stop on runlevel [!2345]
 console output
 
 script
-  <%= @command %>
+  su - <%= node.graphite.metrics.user %> -c './<%= @script %> '
 end script
