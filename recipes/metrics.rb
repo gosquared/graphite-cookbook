@@ -4,6 +4,13 @@ user "metrics" do
   shell     '/bin/bash'
 end
 
+template "/etc/default/metrics" do
+  owner "root"
+  group "root"
+  mode 0644
+  backup false
+end
+
 bootstrap_profile node.graphite.metrics.user do
   match "export HOSTNAME"
   string "export HOSTNAME='#{node.graphite.metrics.hostname || node.hostname}'"
