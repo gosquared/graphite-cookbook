@@ -142,7 +142,7 @@ default[:graphite][:metrics][:user] = "metrics"
 #           ]
 #         }
 #     }
-default[:graphite][:metrics][:files] = []
+default[:graphite][:metrics][:collectors] = []
 #
 # The hostname where these metrics are being sent from.
 # It should not contain . since carbon will create a directory for each
