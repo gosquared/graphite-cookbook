@@ -43,6 +43,7 @@ node.graphite.metrics.collectors.each do |collector|
     owner node.graphite.metrics.user
     group node.graphite.metrics.user
     mode 0755
+    action collector[:action]
   end
 
   if collector[:depends]
@@ -53,21 +54,35 @@ node.graphite.metrics.collectors.each do |collector|
         owner node.graphite.metrics.user
         group node.graphite.metrics.user
         mode 0644
+        action collector[:action]
       end
     end
   end
 
-  template "/etc/init/metric-#{collector[:name]}.conf" do
-    cookbook "graphite"
-    source "metrics/metric.upstart.erb"
-    variables(
-      :name   => collector[:name],
-      :script => collector_file
-    )
-    owner "root"
-    group "root"
-    mode "0644"
-    backup false
-    notifies :restart, resources(:service => "metric-#{collector[:name]}"), :delayed
+  if collector[:action] == :delete
+    service "metric-#{collector[:name]}" do
+      action :stop
+    end
+
+    execute "Removing metric-#{collector[:name]}" do
+      command %{
+        rm /etc/init/metric-#{collector[:name]}.conf
+        initctl reload-configuration
+      }
+    end
+  else
+    template "/etc/init/metric-#{collector[:name]}.conf" do
+      cookbook "graphite"
+      source "metrics/metric.upstart.erb"
+      variables(
+        :name   => collector[:name],
+        :script => collector_file
+      )
+      owner "root"
+      group "root"
+      mode "0644"
+      backup false
+      notifies :restart, resources(:service => "metric-#{collector[:name]}"), :delayed
+    end
   end
 end
