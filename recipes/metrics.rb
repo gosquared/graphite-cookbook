@@ -36,17 +36,6 @@ node.graphite.metrics.collectors.each do |collector|
     provider Chef::Provider::Service::Upstart
   end
 
-  collector_file = collector[:file] || "#{collector[:name]}.sh"
-  cookbook_file "/home/#{node.graphite.metrics.user}/#{collector_file}" do
-    cookbook (collector[:cookbook] || "graphite")
-    source "metrics/#{collector_file}"
-    owner node.graphite.metrics.user
-    group node.graphite.metrics.user
-    mode 0755
-    action collector[:action]
-    notifies :restart, resources(:service => "metric-#{collector[:name]}"), :delayed
-  end
-
   if collector[:depends]
     collector[:depends].each do |script|
       cookbook_file "/home/#{node.graphite.metrics.user}/#{script}" do
@@ -60,18 +49,30 @@ node.graphite.metrics.collectors.each do |collector|
     end
   end
 
+  collector_file = collector[:file] || "#{collector[:name]}.sh"
+
   if collector[:action] == :delete
     service "metric-#{collector[:name]}" do
       action :stop
     end
 
-    execute "Removing metric-#{collector[:name]}" do
+    execute "Removing metric-#{collector[:name]} & dependencies" do
       command %{
         rm /etc/init/metric-#{collector[:name]}.conf
+        rm /home/#{node.graphite.metrics.user}/#{collector_file}
         initctl reload-configuration
       }
     end
   else
+    cookbook_file "/home/#{node.graphite.metrics.user}/#{collector_file}" do
+      cookbook (collector[:cookbook] || "graphite")
+      source "metrics/#{collector_file}"
+      owner node.graphite.metrics.user
+      group node.graphite.metrics.user
+      mode 0755
+      notifies :restart, resources(:service => "metric-#{collector[:name]}"), :delayed
+    end
+
     template "/etc/init/metric-#{collector[:name]}.conf" do
       cookbook "graphite"
       source "metrics/metric.upstart.erb"
