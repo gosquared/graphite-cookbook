@@ -44,6 +44,7 @@ node.graphite.metrics.collectors.each do |collector|
     group node.graphite.metrics.user
     mode 0755
     action collector[:action]
+    notifies :restart, resources(:service => "metric-#{collector[:name]}"), :delayed
   end
 
   if collector[:depends]
