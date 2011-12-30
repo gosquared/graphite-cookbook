@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+if [ ! -z "$1" ]; then
+  . /etc/default/metrics
+  echo $1 | nc -u $METRICS_IP $METRICS_PORT
+fi

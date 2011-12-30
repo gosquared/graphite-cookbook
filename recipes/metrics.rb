@@ -26,6 +26,12 @@ bootstrap_profile node.graphite.metrics.user do
   string "export METRICS_PORT='#{node.graphite.metrics.port}'"
 end
 
+cookbook_file "/usr/local/bin/record_metric" do
+  owner node.graphite.metrics.user
+  group node.graphite.metrics.user
+  mode 0755
+end
+
 def one_but_last(array)
   array[-2]
 end
