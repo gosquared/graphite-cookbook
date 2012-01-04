@@ -151,7 +151,7 @@ default[:graphite][:metrics][:collectors] = []
 default[:graphite][:metrics][:hostname] = "your-hostname"
 #
 # Metrics collector/aggregator IPs
-default[:graphite][:metrics][:ips] = ["127.0.0.1"]
+default[:graphite][:metrics][:ips] = []
 #
 # Metrics collector/aggregator port
 # If you're using statsd or statsite, this will be different
