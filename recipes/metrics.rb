@@ -16,9 +16,11 @@ bootstrap_profile node.graphite.metrics.user do
   string "export HOSTNAME='#{node.graphite.metrics.hostname || node.hostname}'"
 end
 
-bootstrap_profile node.graphite.metrics.user do
-  match "export METRICS_IP"
-  string "export METRICS_IP='#{node.graphite.metrics.ip}'"
+node.graphite.metrics.ips.each_with_index do |ip, index|
+  bootstrap_profile node.graphite.metrics.user do
+    match "export METRICS_IP#{index}"
+    string "export METRICS_IP#{index}='#{ip}'"
+  end
 end
 
 bootstrap_profile node.graphite.metrics.user do

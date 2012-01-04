@@ -150,8 +150,8 @@ default[:graphite][:metrics][:collectors] = []
 # <graphite-storage>your/awesome/hostname/metric.wsp
 default[:graphite][:metrics][:hostname] = "your-hostname"
 #
-# Metrics collector/aggregator IP
-default[:graphite][:metrics][:ip] = "127.0.0.1"
+# Metrics collector/aggregator IPs
+default[:graphite][:metrics][:ips] = ["127.0.0.1"]
 #
 # Metrics collector/aggregator port
 # If you're using statsd or statsite, this will be different
