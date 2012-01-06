@@ -12,20 +12,10 @@ template "/etc/default/metrics" do
 end
 
 bootstrap_profile node.graphite.metrics.user do
-  match "export HOSTNAME"
-  string "export HOSTNAME='#{node.graphite.metrics.hostname || node.hostname}'"
-end
-
-node.graphite.metrics.ips.each_with_index do |ip, index|
-  bootstrap_profile node.graphite.metrics.user do
-    match "export METRICS_IP#{index}"
-    string "export METRICS_IP#{index}='#{ip}'"
-  end
-end
-
-bootstrap_profile node.graphite.metrics.user do
-  match "export METRICS_PORT"
-  string "export METRICS_PORT='#{node.graphite.metrics.port}'"
+  filename "metrics"
+  params [
+    "[ -f /etc/default/metrics ] && . /etc/default/metrics"
+  ]
 end
 
 cookbook_file "/usr/local/bin/record_metric" do
