@@ -2,8 +2,15 @@
 # ANY MANUAL MODIFICATIONS WILL BE OVERWRITTEN
 #
 HOSTNAME=<%= node.graphite.metrics.hostname || node.hostname %>
+export HOSTNAME
+
 METRICS_IP=<%= node.graphite.metrics.ips.first %>
+export METRICS_IP
+
 <% node.graphite.metrics.ips.each_with_index do |ip, index| %>
 METRICS_IP<%= index %>=<%= ip %>
+export METRICS_IP<%= index %>
 <% end %>
+
 METRICS_PORT=<%= node.graphite.metrics.port %>
+export METRICS_PORT
