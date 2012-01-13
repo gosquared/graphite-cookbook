@@ -1,8 +1,4 @@
-user "metrics" do
-  supports  :manage_home => true
-  home      "/home/#{node.graphite.metrics.user}"
-  shell     '/bin/bash'
-end
+bootstrap_system_user "metrics"
 
 template "/etc/default/metrics" do
   owner "root"
