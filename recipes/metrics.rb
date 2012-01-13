@@ -11,8 +11,8 @@ template "/etc/default/metrics" do
   backup false
 end
 
-bootstrap_profile node.graphite.metrics.user do
-  filename "metrics"
+bootstrap_profile "metric"  do
+  username node.graphite.metrics.user
   params [
     "[ -f /etc/default/metrics ] && . /etc/default/metrics"
   ]
