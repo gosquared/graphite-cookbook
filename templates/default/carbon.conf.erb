@@ -38,14 +38,14 @@ USER = graphite
 # Limit the size of the cache to avoid swapping or becoming CPU bound.
 # Sorts and serving cache queries gets more expensive as the cache grows.
 # Use the value "inf" (infinity) for an unlimited cache size.
-MAX_CACHE_SIZE = <%= node.graphite.carbon.max_cache_size %>
+MAX_CACHE_SIZE = <%= node[:graphite][:carbon][:max_cache_size] %>
 
 # Limits the number of whisper update_many() calls per second, which effectively
 # means the number of write requests sent to the disk. This is intended to
 # prevent over-utilizing the disk and thus starving the rest of the system.
 # When the rate of required updates exceeds this, then carbon's caching will
 # take effect and increase the overall throughput accordingly.
-MAX_UPDATES_PER_SECOND = <%= node.graphite.carbon.max_updates_per_second %>
+MAX_UPDATES_PER_SECOND = <%= node[:graphite][:carbon][:max_updates_per_second] %>
 
 # Softly limits the number of whisper files that get created each minute.
 # Setting this value low (like at 50) is a good way to ensure your graphite
@@ -54,25 +54,25 @@ MAX_UPDATES_PER_SECOND = <%= node.graphite.carbon.max_updates_per_second %>
 # database files to all get created and thus longer until the data becomes usable.
 # Setting this value high (like "inf" for infinity) will cause graphite to create
 # the files quickly but at the risk of slowing I/O down considerably for a while.
-MAX_CREATES_PER_MINUTE = <%= node.graphite.carbon.max_creates_per_minute %>
+MAX_CREATES_PER_MINUTE = <%= node[:graphite][:carbon][:max_creates_per_minute] %>
 
-LINE_RECEIVER_INTERFACE = <%= node.graphite.carbon.line_receiver_interface %>
-LINE_RECEIVER_PORT = <%= node.graphite.carbon.line_receiver_port %>
+LINE_RECEIVER_INTERFACE = <%= node[:graphite][:carbon][:line_receiver_interface] %>
+LINE_RECEIVER_PORT = <%= node[:graphite][:carbon][:line_receiver_port] %>
 
 # Set this to True to enable the UDP listener. By default this is off
 # because it is very common to run multiple carbon daemons and managing
 # another (rarely used) port for every carbon instance is not fun.
-ENABLE_UDP_LISTENER = False
-UDP_RECEIVER_INTERFACE = 0.0.0.0
-UDP_RECEIVER_PORT = 2003
+ENABLE_UDP_LISTENER = <%= node[:graphite][:carbon][:enable_udp_listener] %>
+UDP_RECEIVER_INTERFACE = <%= node[:graphite][:carbon][:udp_receiver_interface] %>
+UDP_RECEIVER_PORT = <%= node[:graphite][:carbon][:udp_receiver_port] %>
 
-PICKLE_RECEIVER_INTERFACE = 0.0.0.0
-PICKLE_RECEIVER_PORT = 2004
+PICKLE_RECEIVER_INTERFACE = <%= node[:graphite][:carbon][:pickle_receiver_interface] %>
+PICKLE_RECEIVER_PORT = <%= node[:graphite][:carbon][:pickle_receiver_port] %>
 
 # Per security concerns outlined in Bug #817247 the pickle receiver
 # will use a more secure and slightly less efficient unpickler.
 # Set this to True to revert to the old-fashioned insecure unpickler.
-USE_INSECURE_UNPICKLER = False
+USE_INSECURE_UNPICKLER = <%= node[:graphite][:carbon][:use_insecure_unpickler] %>
 
 CACHE_QUERY_INTERFACE = 0.0.0.0
 CACHE_QUERY_PORT = 7002
@@ -93,19 +93,19 @@ LOG_UPDATES = False
 WHISPER_AUTOFLUSH = False
 
 # Enable AMQP if you want to receve metrics using an amqp broker
-ENABLE_AMQP = <%= node.graphite.carbon.amqp.enable %>
+ENABLE_AMQP = <%= node[:graphite][:carbon][:amqp][:enable] %>
 
 # Verbose means a line will be logged for every metric received
 # useful for testing
 AMQP_VERBOSE = False
 
-AMQP_HOST = <%= node.graphite.carbon.amqp.host %>
-AMQP_PORT = <%= node.graphite.carbon.amqp.port %>
-AMQP_VHOST = <%= node.graphite.carbon.amqp.vhost %>
-AMQP_USER = <%= node.graphite.carbon.amqp.user %>
-AMQP_PASSWORD = <%= node.graphite.carbon.amqp.password %>
-AMQP_EXCHANGE = <%= node.graphite.carbon.amqp.exchange %>
-AMQP_METRIC_NAME_IN_BODY = <%= node.graphite.carbon.amqp.metric_name_in_body %>
+AMQP_HOST = <%= node[:graphite][:carbon][:amqp][:host] %>
+AMQP_PORT = <%= node[:graphite][:carbon][:amqp][:port] %>
+AMQP_VHOST = <%= node[:graphite][:carbon][:amqp][:vhost] %>
+AMQP_USER = <%= node[:graphite][:carbon][:amqp][:user] %>
+AMQP_PASSWORD = <%= node[:graphite][:carbon][:amqp][:password] %>
+AMQP_EXCHANGE = <%= node[:graphite][:carbon][:amqp][:exchange] %>
+AMQP_METRIC_NAME_IN_BODY = <%= node[:graphite][:carbon][:amqp][:metric_name_in_body] %>
 
 # The manhole interface allows you to SSH into the carbon daemon
 # and get a python interpreter. BE CAREFUL WITH THIS! If you do

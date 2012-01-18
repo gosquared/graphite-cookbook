@@ -34,9 +34,23 @@ default[:graphite][:carbon][:max_updates_per_second] = 1000
 # the files quickly but at the risk of slowing I/O down considerably for a while.
 default[:graphite][:carbon][:max_creates_per_minute] = 50
 #
-# Receiving interface
+# TCP listening interface
 default[:graphite][:carbon][:line_receiver_interface] = "0.0.0.0"
 default[:graphite][:carbon][:line_receiver_port]      = "2003"
+#
+# Set this to True to enable the UDP listener. By default this is off
+# because it is very common to run multiple carbon daemons and managing
+# another (rarely used) port for every carbon instance is not fun.
+default[:graphite][:carbon][:enable_udp_listener]    = "False"
+default[:graphite][:carbon][:udp_receiver_interface] = "0.0.0.0"
+default[:graphite][:carbon][:udp_receiver_port]      = "2003"
+
+default[:graphite][:carbon][:pickle_receiver_interface] = "0.0.0.0"
+default[:graphite][:carbon][:pickle_receiver_port]      = "2004"
+# Per security concerns outlined in Bug #817247 the pickle receiver
+# will use a more secure and slightly less efficient unpickler.
+# Set this to True to revert to the old-fashioned insecure unpickler.
+default[:graphite][:carbon][:use_insecure_unpickler]      = "False"
 #
 # AMQP
 default[:graphite][:carbon][:amqp][:enable]              = "False"
