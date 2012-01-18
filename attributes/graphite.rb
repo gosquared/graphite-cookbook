@@ -170,3 +170,6 @@ default[:graphite][:metrics][:ips] = []
 # Metrics collector/aggregator port
 # If you're using statsd or statsite, this will be different
 default[:graphite][:metrics][:port] = "2003"
+#
+# If you've installed statsite and don't want it anymore, remove it
+default[:graphite][:statsite][:disable] = false

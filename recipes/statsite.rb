@@ -3,22 +3,32 @@ python_pip "statsite" do
 end
 
 service "statsite" do
-  supports :status => true, :restart => true, :reload => true
   provider Chef::Provider::Service::Upstart
 end
 
-template "/etc/init/statsite.conf" do
-  cookbook "graphite"
-  source "statsite.upstart.erb"
-  notifies :restart, resources(:service => "statsite"), :delayed
-  backup false
-end
+if node[:graphite][:statsite][:disable]
+  bash "Removing statsite" do
+    code %{
+      stop statsite
+      rm -f /etc/init/statsite.conf
+      rm -f #{node[:graphite][:home]}/conf/statsite.conf
+    }
+    only_if "[ $(initctl list | grep -c statsite) > 0 ]"
+  end
+else
+  template "/etc/init/statsite.conf" do
+    cookbook "graphite"
+    source "statsite.upstart.erb"
+    notifies :restart, resources(:service => "statsite"), :delayed
+    backup false
+  end
 
-template "#{node.graphite.home}/conf/statsite.conf" do
-  cookbook "graphite"
-  owner "graphite"
-  group "graphite"
-  mode "0644"
-  notifies :restart, resources(:service => "statsite"), :delayed
-  backup false
+  template "#{node[:graphite][:home]}/conf/statsite.conf" do
+    cookbook "graphite"
+    owner "graphite"
+    group "graphite"
+    mode "0644"
+    notifies :restart, resources(:service => "statsite"), :delayed
+    backup false
+  end
 end
