@@ -8,7 +8,7 @@ default[:graphite][:version] = "0.9.9"
 ### CARBON - THE DATA AGGREGATOR
 #
 # By default, everything will be installed in /opt/graphite.
-# It strongly recommended that you do not change the default install path.
+# It is strongly recommended that you do not change the default install path.
 # Strange problems can ensue if you do.
 #
 default[:graphite][:carbon][:dir]       = "carbon-#{graphite.version}"
@@ -47,6 +47,7 @@ default[:graphite][:carbon][:udp_receiver_port]      = "2003"
 
 default[:graphite][:carbon][:pickle_receiver_interface] = "0.0.0.0"
 default[:graphite][:carbon][:pickle_receiver_port]      = "2004"
+#
 # Per security concerns outlined in Bug #817247 the pickle receiver
 # will use a more secure and slightly less efficient unpickler.
 # Set this to True to revert to the old-fashioned insecure unpickler.
