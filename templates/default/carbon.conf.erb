@@ -97,7 +97,7 @@ ENABLE_AMQP = <%= node[:graphite][:carbon][:amqp][:enable] %>
 
 # Verbose means a line will be logged for every metric received
 # useful for testing
-AMQP_VERBOSE = False
+AMQP_VERBOSE = <%= node[:graphite][:carbon][:amqp][:verbose] %>
 
 AMQP_HOST = <%= node[:graphite][:carbon][:amqp][:host] %>
 AMQP_PORT = <%= node[:graphite][:carbon][:amqp][:port] %>

@@ -55,6 +55,7 @@ default[:graphite][:carbon][:use_insecure_unpickler]      = "False"
 #
 # AMQP
 default[:graphite][:carbon][:amqp][:enable]              = "False"
+default[:graphite][:carbon][:amqp][:verbose]             = "False"
 default[:graphite][:carbon][:amqp][:host]                = "localhost"
 default[:graphite][:carbon][:amqp][:port]                = 5672
 default[:graphite][:carbon][:amqp][:vhost]               = "/"
