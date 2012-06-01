@@ -7,8 +7,8 @@ python_pip "python-memcached" do
 end
 
 python_pip "graphite_web" do
-  version node.graphite.version
-  directory "#{node.graphite.home}/webapp"
+  version node[:graphite][:version]
+  directory "#{node[:graphite][:home]}/webapp"
 end
 
 python_pip "django-tagging" do
@@ -44,14 +44,14 @@ package "python-cairo"
 #   command "chmod -fR 755 #{node.graphite.home}/storage/log/webapp"
 # end
 
-file "#{node.graphite.home}/webapp/favicon.ico" do
+file "#{node[:graphite][:home]}/webapp/favicon.ico" do
   owner "graphite"
   group "graphite"
 end
 
 include_recipe "python::uwsgi"
 
-template "#{node.graphite.home}/conf/dashboard.conf" do
+template "#{node[:graphite][:home]}/conf/dashboard.conf" do
   cookbook "graphite"
   owner "graphite"
   group "graphite"
@@ -60,7 +60,7 @@ template "#{node.graphite.home}/conf/dashboard.conf" do
   backup false
 end
 
-template "#{node.graphite.home}/webapp/graphite/local_settings.py" do
+template "#{node[:graphite][:home]}/webapp/graphite/local_settings.py" do
   cookbook "graphite"
   source "local_settings.py.erb"
   owner "graphite"
@@ -71,6 +71,6 @@ template "#{node.graphite.home}/webapp/graphite/local_settings.py" do
 end
 
 execute "syncdb" do
-  command "yes no | python #{node.graphite.home}/webapp/graphite/manage.py syncdb"
-  not_if "[ -f #{node.graphite.home}/storage/graphite.db ]"
+  command "yes no | python #{node[:graphite][:home]}/webapp/graphite/manage.py syncdb"
+  not_if "[ -f #{node[:graphite][:home]}/storage/graphite.db ]"
 end
