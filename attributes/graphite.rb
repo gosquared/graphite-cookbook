@@ -1,7 +1,7 @@
 ### GENERAL
 #
 default[:graphite][:home]    = "/opt/graphite"
-default[:graphite][:version] = "0.9.9"
+default[:graphite][:version] = "0.9.10"
 
 
 
@@ -11,7 +11,7 @@ default[:graphite][:version] = "0.9.9"
 # It is strongly recommended that you do not change the default install path.
 # Strange problems can ensue if you do.
 #
-default[:graphite][:carbon][:dir]       = "carbon-#{graphite.version}"
+default[:graphite][:carbon][:dir]       = "carbon-#{graphite[:version]}"
 #
 # Limit the size of the cache to avoid swapping or becoming CPU bound.
 # Sorts and serving cache queries gets more expensive as the cache grows.
@@ -105,12 +105,12 @@ default[:graphite][:whisper][:schemas] = []
 # you will be using.  If you are using the default python that came with your
 # distribution, or have no idea what this means, it is most likely the root /
 # superuser account.
-default[:graphite][:whisper][:dir]      = "whisper-#{graphite.version}"
+default[:graphite][:whisper][:dir]      = "whisper-#{graphite[:version]}"
 
 ### WEB - Django WEB APP
 #
 # This is the frontend / webapp that renders the images.
-default[:graphite][:web][:dir]          = "graphite-web-#{graphite.version}"
+default[:graphite][:web][:dir]          = "graphite-web-#{graphite[:version]}"
 #
 # Set your local timezone (django will *try* to figure this out automatically)
 default[:graphite][:web][:timezone]     = "Europe/London"
