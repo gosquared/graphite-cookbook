@@ -18,6 +18,9 @@ TIME_ZONE = '<%= node.graphite.web.timezone %>'
 # Enable email-related features
 #SMTP_SERVER = "mail.mycompany.com"
 
+# If carbon cache CPU or IO is bottlenecking, upping this value gives carbon some extra time to send back data
+CARBONLINK_TIMEOUT = 10
+
 
 #####################################
 # LDAP Authentication Configuration #
