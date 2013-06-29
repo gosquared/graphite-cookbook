@@ -12,9 +12,8 @@ env PIDFILE=<%= node.graphite.home %>/storage/carbon-cache.pid
 # uncomment this for debugging
 # console output
 
-pre-start script
-  $CARBON_CACHE --pidfile=$PIDFILE start
-end script
+expect daemon
+kill timeout 20
 
 pre-stop script
   $CARBON_CACHE --pidfile=$PIDFILE stop
@@ -25,4 +24,4 @@ pre-stop script
   exit 0
 end script
 
-kill timeout 20
+exec $CARBON_CACHE --pidfile=$PIDFILE start
