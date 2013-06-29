@@ -16,7 +16,7 @@ pre-start script
   $CARBON_CACHE --pidfile=$PIDFILE start
 end script
 
-post-stop script
+pre-stop script
   $CARBON_CACHE --pidfile=$PIDFILE stop
 
   # don't consider this service stopped until the PID gets removed
@@ -24,3 +24,5 @@ post-stop script
   while [ -e $PIDFILE ]; do sleep 1 ; done
   exit 0
 end script
+
+kill timeout 20
