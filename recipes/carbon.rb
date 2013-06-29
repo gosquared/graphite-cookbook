@@ -1,5 +1,13 @@
 package "libsqlite3-dev"
 
+directory node[:graphite][:carbon][:log_dir] do
+  owner "graphite"
+  group "graphite"
+  mode 0755
+  recursive true
+  action :create
+end
+
 python_pip "pysqlite" do
   version "2.6.3"
 end

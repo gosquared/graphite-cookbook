@@ -3,8 +3,6 @@
 default[:graphite][:home]    = "/opt/graphite"
 default[:graphite][:version] = "0.9.10"
 
-
-
 ### CARBON - THE DATA AGGREGATOR
 #
 # By default, everything will be installed in /opt/graphite.
@@ -12,6 +10,8 @@ default[:graphite][:version] = "0.9.10"
 # Strange problems can ensue if you do.
 #
 default[:graphite][:carbon][:dir]       = "carbon-#{graphite[:version]}"
+
+default[:graphite][:carbon][:log_dir] = "#{default[:graphite][:storage_dir]}/log"
 #
 # Limit the size of the cache to avoid swapping or becoming CPU bound.
 # Sorts and serving cache queries gets more expensive as the cache grows.

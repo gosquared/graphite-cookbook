@@ -30,6 +30,8 @@
 #
 #LOCAL_DATA_DIR = /opt/graphite/storage/whisper/
 
+LOG_DIR = <%= node[:graphite][:carbon][:log_dir] %>
+
 # Specify the user to drop privileges to
 # If this is blank carbon runs as the user that invokes it
 # This user must have write access to the local data directory
@@ -194,7 +196,7 @@ PICKLE_RECEIVER_PORT = 2024
 # use multiple carbon-cache instances then it would look like this:
 #
 # DESTINATIONS = 127.0.0.1:2004:a, 127.0.0.1:2104:b
-# 
+#
 # The format is comma-delimited IP:PORT:INSTANCE where the :INSTANCE part is
 # optional and refers to the "None" instance if omitted.
 #
